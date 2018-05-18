@@ -29,24 +29,42 @@ class ProjectSaver extends React.Component {
         document.body.appendChild(saveLink);
 
         this.props.vm.saveProjectSb3().then(content => {
-            // TODO user-friendly project name
-            // File name: project-DATE-TIME
-            const date = new Date();
-            const timestamp = `${date.toLocaleDateString()}-${date.toLocaleTimeString()}`;
-            const filename = `untitled-project-${timestamp}.sb3`;
-
-            // Use special ms version if available to get it working on Edge.
-            if (navigator.msSaveOrOpenBlob) {
-                navigator.msSaveOrOpenBlob(content, filename);
-                return;
+            var formData = new FormData();
+            if (scratch_type === 'level') {
+                formData.append('name', 'userlevel' + scratch_id + stem_user_id);
+            } else {
+                formData.append('name', scratch_type + scratch_id);
             }
-
-            const url = window.URL.createObjectURL(content);
-            saveLink.href = url;
-            saveLink.download = filename;
-            saveLink.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(saveLink);
+            formData.append('file', content);
+            var request = new XMLHttpRequest();
+            request.open('POST', '/stemgarden/stemgarden/1.0/level/scratch/saveFile');
+            request.send(formData);
+            if (scratch_type === 'level') {
+                var levelDetailStr = scratch_level_detail;
+                if (!!levelDetailStr) {
+                    let levelDetail = JSON.parse(levelDetailStr);
+                    let blocklyWorkspaceString = "";
+                    var applabData = {};
+                    var applabProjectTemplate = "";
+                    var urlstr = "/stemgarden/stemgarden/1.0/userLesson/" + levelDetail.userID + "/" + levelDetail.lessonID;
+                    if (!!levelDetail.studentID) {
+                        urlstr = "/stemgarden/stemgarden/1.0/userLesson/" + levelDetail.studentID + "/" + levelDetail.lessonID;
+                    }
+                    $.ajax({
+                        url: urlstr,
+                        type: 'POST',
+                        data: {
+                            stageID: levelDetail.stageID,
+                            substageID: levelDetail.substageID,
+                            levelID: levelDetail.levelID,
+                            levelStatus: 3, // FINISHED = 2
+                            history: scratch_id + stem_user_id,
+                            applabProjectTemplate: applabProjectTemplate,
+                            applabHistory: JSON.stringify(applabData)
+                        }
+                    });
+                }
+            }
         });
     }
     render () {

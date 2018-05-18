@@ -47,6 +47,7 @@ const Controls = function (props) {
                 title={intl.formatMessage(messages.stopTitle)}
                 onClick={onStopAllClick}
             />
+            <button id='stem-next-level-button'>下一关</button>
             {turbo ? (
                 <TurboMode />
             ) : null}

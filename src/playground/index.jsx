@@ -16,9 +16,8 @@ if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
 // Register "base" page view
 analytics.pageview('/');
 
-const appTarget = document.createElement('div');
+const appTarget = document.getElementById('scratch-gui');
 appTarget.className = styles.app;
-document.body.appendChild(appTarget);
 
 GUI.setAppElement(appTarget);
 const WrappedGui = HashParserHOC(GUI);

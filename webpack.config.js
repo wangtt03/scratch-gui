@@ -97,7 +97,7 @@ module.exports = [
                     test: /\.(svg|png|wav|gif|jpg)$/,
                     loader: 'file-loader',
                     options: {
-                        outputPath: 'static/assets/'
+                        outputPath: '../assets/media/scratch/assets/'
                     }
                 }
             ])
@@ -147,11 +147,11 @@ module.exports = [
             }]),
             new CopyWebpackPlugin([{
                 from: 'node_modules/scratch-blocks/media',
-                to: 'static/blocks-media'
+                to: '../assets/media/scratch/blocks-media'
             }]),
             new CopyWebpackPlugin([{
                 from: 'extensions/**',
-                to: 'static',
+                to: '../assets/media/scratch',
                 context: 'src/examples'
             }]),
             new CopyWebpackPlugin([{
@@ -183,8 +183,8 @@ module.exports = [
                         test: /\.(svg|png|wav|gif|jpg)$/,
                         loader: 'file-loader',
                         options: {
-                            outputPath: 'static/assets/',
-                            publicPath: '/static/assets/'
+                            outputPath: '../assets/media/scratch/assets/',
+                            publicPath: '/../assets/media/scratch/assets/'
                         }
                     }
                 ])
@@ -192,7 +192,7 @@ module.exports = [
             plugins: base.plugins.concat([
                 new CopyWebpackPlugin([{
                     from: 'node_modules/scratch-blocks/media',
-                    to: 'static/blocks-media'
+                    to: '../assets/media/scratch/blocks-media'
                 }]),
                 new CopyWebpackPlugin([{
                     from: 'extension-worker.{js,js.map}',

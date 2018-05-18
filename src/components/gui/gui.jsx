@@ -28,6 +28,9 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 
+import ProjectLoader from '../../containers/project-loader.jsx'
+import ProjectSaver from '../../containers/project-saver.jsx'
+
 const messages = defineMessages({
     addExtension: {
         id: 'gui.gui.addExtension',
@@ -90,9 +93,7 @@ const GUIComponent = props => {
             className={styles.pageWrapper}
             {...componentProps}
         >
-            {previewInfoVisible ? (
-                <PreviewModal />
-            ) : null}
+
             {loading ? (
                 <Loader />
             ) : null}
@@ -108,7 +109,24 @@ const GUIComponent = props => {
             {cardsVisible ? (
                 <Cards />
             ) : null}
-            <MenuBar />
+            <ProjectLoader>{(renderFileInput, loadProject, loadProps) => (
+                <button
+                        onClick={loadProject}
+                        id='stem-loader'
+                        style={{display: "None"}}
+                        >
+                    Upload from your computer
+                </button>
+            )}</ProjectLoader>
+            <ProjectSaver>{(saveProject, saveProps) => (
+                <button
+                        onClick={saveProject}
+                        id='stem-saver'
+                        style={{display: "None"}}
+                        >
+                    Download to your computer
+                </button>
+            )}</ProjectSaver>
             <Box className={styles.bodyWrapper}>
                 <Box className={styles.flexWrapper}>
                     <Box className={styles.editorWrapper}>
@@ -175,7 +193,7 @@ const GUIComponent = props => {
                                         grow={1}
                                         isVisible={blocksTabVisible}
                                         options={{
-                                            media: `${basePath}static/blocks-media/`
+                                            media: `/assets/media/scratch/blocks-media/`
                                         }}
                                         vm={vm}
                                     />

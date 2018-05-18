@@ -59,7 +59,30 @@ class ProjectLoader extends React.Component {
         }
     }
     handleClick () {
-        this.fileInput.click();
+        var xhr = new XMLHttpRequest();
+        var that = this;
+
+        var scratchFileUrl = 'http://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch/' + scratch_type + scratch_id;
+        if (scratch_type === 'level' && user_scratch_id !== "") {
+            scratchFileUrl = 'http://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch/' + 'userlevel' + user_scratch_id;
+        }
+        xhr.open('GET', scratchFileUrl, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function (e) {
+            if (this.status === 200) {
+                var responseArray = new Uint8Array(this.response);
+                that.props.vm.loadProject(responseArray).then(function () {
+                    that.props.closeLoadingState();
+                }).catch(function (error) {
+                    that.setState({ loadingError: true, errorMessage: error });
+                });
+            } else {
+                that.props.closeLoadingState();
+            }
+        };
+        this.props.openLoadingState();
+        xhr.send();
+        //this.fileInput.click();
     }
     setFileInput (input) {
         this.fileInput = input;

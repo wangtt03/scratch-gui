@@ -71,6 +71,7 @@ const StageHeaderComponent = function (props) {
                         className={styles.stageButton}
                         onClick={onSetStageUnFull}
                         onKeyPress={onKeyPress}
+                        id={"scratch-unpreview-button"}
                     >
                         <img
                             alt={props.intl.formatMessage(messages.unFullStageSizeMessage)}
@@ -136,6 +137,7 @@ const StageHeaderComponent = function (props) {
                             <Button
                                 className={styles.stageButton}
                                 onClick={onSetStageFull}
+                                id={"scratch-preview-button"}
                             >
                                 <img
                                     alt={props.intl.formatMessage(messages.fullStageSizeMessage)}
