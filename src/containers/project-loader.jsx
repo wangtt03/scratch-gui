@@ -62,9 +62,9 @@ class ProjectLoader extends React.Component {
         var xhr = new XMLHttpRequest();
         var that = this;
 
-        var scratchFileUrl = 'http://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch/' + scratch_type + scratch_id;
+        var scratchFileUrl = 'https://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch/' + scratch_type + scratch_id;
         if (scratch_type === 'level' && user_scratch_id !== "") {
-            scratchFileUrl = 'http://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch/' + 'userlevel' + user_scratch_id;
+            scratchFileUrl = 'https://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch/' + 'userlevel' + user_scratch_id;
         }
         xhr.open('GET', scratchFileUrl, true);
         xhr.responseType = 'arraybuffer';

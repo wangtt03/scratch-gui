@@ -97,7 +97,8 @@ module.exports = [
                     test: /\.(svg|png|wav|gif|jpg)$/,
                     loader: 'file-loader',
                     options: {
-                        outputPath: '../assets/media/scratch/assets/'
+                        outputPath: '../assets/media/scratch/assets/',
+                        publicPath: 'https://images.k12mlmq.com/assets/media/scratch/assets/'
                     }
                 }
             ])
@@ -184,7 +185,7 @@ module.exports = [
                         loader: 'file-loader',
                         options: {
                             outputPath: '../assets/media/scratch/assets/',
-                            publicPath: '/../assets/media/scratch/assets/'
+                            publicPath: 'https://images.k12mlmq.com/assets/media/scratch/assets/'
                         }
                     }
                 ])
