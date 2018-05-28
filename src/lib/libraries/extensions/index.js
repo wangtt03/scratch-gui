@@ -68,5 +68,13 @@ export default [
         description: 'Build with motors and sensors.',
         featured: true,
         disabled: true
+    },
+    {
+        name: '人工智能模块',
+        extensionId: 'stem',
+        iconURL: ev3Image,
+        description: '图像识别、语音转换以及更多。',
+        featured: true,
+        disabled: false
     }
 ];
