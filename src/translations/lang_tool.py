@@ -1,7 +1,7 @@
 import json
 from pprint import pprint
 
-with open('zh.json') as f:
+with open('zh_website.json') as f:
     rdata = json.load(f)
 
 data = {}
