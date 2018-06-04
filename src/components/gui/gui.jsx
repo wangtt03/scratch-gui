@@ -194,6 +194,7 @@ const GUIComponent = props => {
                                         isVisible={blocksTabVisible}
                                         options={{
                                             media: `https://images.k12mlmq.com/assets/media/scratch/blocks-media/`
+                                            // media: `/assets/media/scratch/blocks-media/`
                                         }}
                                         vm={vm}
                                     />

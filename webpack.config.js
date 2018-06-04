@@ -99,6 +99,7 @@ module.exports = [
                     options: {
                         outputPath: '../assets/media/scratch/assets/',
                         publicPath: 'https://images.k12mlmq.com/assets/media/scratch/assets/'
+                        // publicPath: '/assets/media/scratch/assets/'
                     }
                 }
             ])

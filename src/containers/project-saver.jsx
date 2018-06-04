@@ -57,7 +57,7 @@ class ProjectSaver extends React.Component {
                             stageID: levelDetail.stageID,
                             substageID: levelDetail.substageID,
                             levelID: levelDetail.levelID,
-                            levelStatus: 3, // FINISHED = 2
+                            levelStatus: 2, // FINISHED = 2
                             history: scratch_id + stem_user_id,
                             applabProjectTemplate: applabProjectTemplate,
                             applabHistory: JSON.stringify(applabData)
