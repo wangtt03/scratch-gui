@@ -1,0 +1,7 @@
+rm -fr /Users/tiantianwang/Develop/projects/go/src/github.com/wangtt03/stemweb/apps/static/scratch/*
+cp -fr build/* /Users/tiantianwang/Develop/projects/go/src/github.com/wangtt03/stemweb/apps/lib/scratch/
+cp -fr assets/media/scratch/* /Users/tiantianwang/Develop/projects/go/src/github.com/wangtt03/stemweb/apps/static/scratch/
+
+rm -fr /Users/tiantianwang/Develop/projects/go/src/github.com/wangtt03/stemweb/apps/build/package/media/scratch/*
+cp -fr build/* /Users/tiantianwang/Develop/projects/go/src/github.com/wangtt03/stemweb/apps/build/package/js/scratch/
+cp -fr assets/media/scratch/* /Users/tiantianwang/Develop/projects/go/src/github.com/wangtt03/stemweb/apps/build/package/media/scratch/

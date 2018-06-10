@@ -22,4 +22,8 @@ appTarget.className = styles.app;
 GUI.setAppElement(appTarget);
 const WrappedGui = HashParserHOC(GUI);
 
-ReactDOM.render(<WrappedGui />, appTarget);
+if (!projectDataInfo) {
+    ReactDOM.render(<WrappedGui />, appTarget);
+} else {
+    ReactDOM.render(<WrappedGui projectData={projectDataInfo}/>, appTarget);
+}

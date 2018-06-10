@@ -29,42 +29,7 @@ class ProjectSaver extends React.Component {
         document.body.appendChild(saveLink);
 
         this.props.vm.saveProjectSb3().then(content => {
-            var formData = new FormData();
-            if (scratch_type === 'level') {
-                formData.append('name', 'userlevel' + scratch_id + stem_user_id);
-            } else {
-                formData.append('name', scratch_type + scratch_id);
-            }
-            formData.append('file', content);
-            var request = new XMLHttpRequest();
-            request.open('POST', '/stemgarden/stemgarden/1.0/level/scratch/saveFile');
-            request.send(formData);
-            if (scratch_type === 'level') {
-                var levelDetailStr = scratch_level_detail;
-                if (!!levelDetailStr) {
-                    let levelDetail = JSON.parse(levelDetailStr);
-                    let blocklyWorkspaceString = "";
-                    var applabData = {};
-                    var applabProjectTemplate = "";
-                    var urlstr = "/stemgarden/stemgarden/1.0/userLesson/" + levelDetail.userID + "/" + levelDetail.lessonID;
-                    if (!!levelDetail.studentID) {
-                        urlstr = "/stemgarden/stemgarden/1.0/userLesson/" + levelDetail.studentID + "/" + levelDetail.lessonID;
-                    }
-                    $.ajax({
-                        url: urlstr,
-                        type: 'POST',
-                        data: {
-                            stageID: levelDetail.stageID,
-                            substageID: levelDetail.substageID,
-                            levelID: levelDetail.levelID,
-                            levelStatus: 2, // FINISHED = 2
-                            history: scratch_id + stem_user_id,
-                            applabProjectTemplate: applabProjectTemplate,
-                            applabHistory: JSON.stringify(applabData)
-                        }
-                    });
-                }
-            }
+            saveSb3ProjectToCloud(content);
         });
     }
     render () {

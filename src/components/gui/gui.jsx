@@ -28,7 +28,6 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 
-import ProjectLoader from '../../containers/project-loader.jsx'
 import ProjectSaver from '../../containers/project-saver.jsx'
 
 const messages = defineMessages({
@@ -93,7 +92,9 @@ const GUIComponent = props => {
             className={styles.pageWrapper}
             {...componentProps}
         >
-
+            {previewInfoVisible ? (
+                <PreviewModal />
+            ) : null}
             {loading ? (
                 <Loader />
             ) : null}
@@ -109,15 +110,6 @@ const GUIComponent = props => {
             {cardsVisible ? (
                 <Cards />
             ) : null}
-            <ProjectLoader>{(renderFileInput, loadProject, loadProps) => (
-                <button
-                        onClick={loadProject}
-                        id='stem-loader'
-                        style={{display: "None"}}
-                        >
-                    Upload from your computer
-                </button>
-            )}</ProjectLoader>
             <ProjectSaver>{(saveProject, saveProps) => (
                 <button
                         onClick={saveProject}

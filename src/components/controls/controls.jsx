@@ -48,6 +48,7 @@ const Controls = function (props) {
                 onClick={onStopAllClick}
             />
             <button id='stem-next-level-button'>下一关</button>
+            <button id='stem-help-button'>帮助</button>
             {turbo ? (
                 <TurboMode />
             ) : null}
