@@ -5,9 +5,18 @@ import speechImage from './speech.png';
 import microbitImage from './microbit.png';
 import wedoImage from './wedo.png';
 import ev3Image from './ev3.png';
+import aiImage from './ai_image.jpg';
 import boostImage from './boost.png';
 
 export default [
+    {
+        name: '人工智能模块',
+        extensionId: 'stem',
+        iconURL: aiImage,
+        description: '图像识别、语音转换以及更多。',
+        featured: true,
+        disabled: false
+    },
     {
         name: 'Music',
         extensionId: 'music',
@@ -68,13 +77,5 @@ export default [
         description: 'Build with motors and sensors.',
         featured: true,
         disabled: true
-    },
-    {
-        name: '人工智能模块',
-        extensionId: 'stem',
-        iconURL: ev3Image,
-        description: '图像识别、语音转换以及更多。',
-        featured: true,
-        disabled: false
     }
 ];

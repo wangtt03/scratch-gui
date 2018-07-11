@@ -144,7 +144,7 @@ class LibraryComponent extends React.Component {
                 >
                     {this.getFilteredData().map((dataItem, index) => {
                         const scratchURL = dataItem.md5 ?
-                            `https://cdn.assets.scratch.mit.edu/internalapi/asset/${dataItem.md5}/get/` :
+                            `https://stemwebdata.oss-cn-beijing.aliyuncs.com/assets/media/scratch/library/${dataItem.md5}` :
                             dataItem.rawURL;
                         return (
                             <LibraryItem
