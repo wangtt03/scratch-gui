@@ -13,6 +13,7 @@ import BlocksComponent from '../components/blocks/blocks.jsx';
 import ExtensionLibrary from './extension-library.jsx';
 import CustomProcedures from './custom-procedures.jsx';
 import errorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
+import {STAGE_DISPLAY_SIZES} from '../lib/layout-constants';
 
 import {connect} from 'react-redux';
 import {updateToolbox} from '../reducers/toolbox';
@@ -51,7 +52,8 @@ class Blocks extends React.Component {
             'onVisualReport',
             'onWorkspaceUpdate',
             'onWorkspaceMetricsChange',
-            'setBlocks'
+            'setBlocks',
+            'setLocale'
         ]);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.state = {
@@ -85,7 +87,7 @@ class Blocks extends React.Component {
         addFunctionListener(this.workspace, 'zoom', this.onWorkspaceMetricsChange);
 
         this.attachVM();
-        this.props.vm.setLocale(this.props.locale, this.props.messages);
+        this.setLocale();
 
         analytics.pageview('/editors/blocks');
     }
@@ -96,12 +98,19 @@ class Blocks extends React.Component {
             this.props.toolboxXML !== nextProps.toolboxXML ||
             this.props.extensionLibraryVisible !== nextProps.extensionLibraryVisible ||
             this.props.customProceduresVisible !== nextProps.customProceduresVisible ||
-            this.props.locale !== nextProps.locale
+            this.props.locale !== nextProps.locale ||
+            this.props.anyModalVisible !== nextProps.anyModalVisible ||
+            this.props.stageSize !== nextProps.stageSize
         );
     }
     componentDidUpdate (prevProps) {
+        // If any modals are open, call hideChaff to close z-indexed field editors
+        if (this.props.anyModalVisible && !prevProps.anyModalVisible) {
+            this.ScratchBlocks.hideChaff();
+        }
+
         if (prevProps.locale !== this.props.locale) {
-            this.props.vm.setLocale(this.props.locale, this.props.messages);
+            this.setLocale();
         }
 
         if (prevProps.toolboxXML !== this.props.toolboxXML) {
@@ -112,6 +121,10 @@ class Blocks extends React.Component {
             }, 0);
         }
         if (this.props.isVisible === prevProps.isVisible) {
+            if (this.props.stageSize !== prevProps.stageSize) {
+                // force workspace to redraw for the new stage size
+                window.dispatchEvent(new Event('resize'));
+            }
             return;
         }
         // @todo hack to resize blockly manually in case resize happened while hidden
@@ -119,6 +132,8 @@ class Blocks extends React.Component {
         if (this.props.isVisible) { // Scripts tab
             this.workspace.setVisible(true);
             this.props.vm.refreshWorkspace();
+            // Re-enable toolbox refreshes without causing one. See #updateToolbox for more info.
+            this.workspace.toolboxRefreshEnabled_ = true;
             window.dispatchEvent(new Event('resize'));
         } else {
             this.workspace.setVisible(false);
@@ -128,6 +143,16 @@ class Blocks extends React.Component {
         this.detachVM();
         this.workspace.dispose();
         clearTimeout(this.toolboxUpdateTimeout);
+    }
+
+    setLocale () {
+        this.workspace.getFlyout().setRecyclingEnabled(false);
+        this.ScratchBlocks.ScratchMsgs.setLocale(this.props.locale);
+        this.props.vm.setLocale(this.props.locale, this.props.messages);
+
+        this.workspace.updateToolbox(this.props.toolboxXML);
+        this.props.vm.refreshWorkspace();
+        this.workspace.getFlyout().setRecyclingEnabled(true);
     }
 
     updateToolbox () {
@@ -296,13 +321,19 @@ class Blocks extends React.Component {
     handlePromptStart (message, defaultValue, callback, optTitle, optVarType) {
         const p = {prompt: {callback, message, defaultValue}};
         p.prompt.title = optTitle ? optTitle :
-            this.ScratchBlocks.VARIABLE_MODAL_TITLE;
+            this.ScratchBlocks.Msg.VARIABLE_MODAL_TITLE;
+        p.prompt.varType = typeof optVarType === 'string' ?
+            optVarType : this.ScratchBlocks.SCALAR_VARIABLE_TYPE;
         p.prompt.showMoreOptions =
-            optVarType !== this.ScratchBlocks.BROADCAST_MESSAGE_VARIABLE_TYPE;
+            optVarType !== this.ScratchBlocks.BROADCAST_MESSAGE_VARIABLE_TYPE &&
+            p.prompt.title !== this.ScratchBlocks.Msg.RENAME_VARIABLE_MODAL_TITLE &&
+            p.prompt.title !== this.ScratchBlocks.Msg.RENAME_LIST_MODAL_TITLE;
         this.setState(p);
     }
-    handlePromptCallback (data) {
-        this.state.prompt.callback(data);
+    handlePromptCallback (input, optionSelection) {
+        this.state.prompt.callback(input, optionSelection,
+            (optionSelection === 'local') ? [] :
+                this.props.vm.runtime.getAllVarNamesOfType(this.state.prompt.varType));
         this.handlePromptClose();
     }
     handlePromptClose () {
@@ -317,9 +348,11 @@ class Blocks extends React.Component {
     render () {
         /* eslint-disable no-unused-vars */
         const {
+            anyModalVisible,
             customProceduresVisible,
             extensionLibraryVisible,
             options,
+            stageSize,
             vm,
             isVisible,
             onActivateColorPicker,
@@ -339,6 +372,7 @@ class Blocks extends React.Component {
                 />
                 {this.state.prompt ? (
                     <Prompt
+                        isStage={vm.runtime.getEditingTarget().isStage}
                         label={this.state.prompt.message}
                         placeholder={this.state.prompt.defaultValue}
                         showMoreOptions={this.state.prompt.showMoreOptions}
@@ -368,6 +402,7 @@ class Blocks extends React.Component {
 }
 
 Blocks.propTypes = {
+    anyModalVisible: PropTypes.bool,
     customProceduresVisible: PropTypes.bool,
     extensionLibraryVisible: PropTypes.bool,
     isVisible: PropTypes.bool,
@@ -399,6 +434,7 @@ Blocks.propTypes = {
         comments: PropTypes.bool,
         collapse: PropTypes.bool
     }),
+    stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     toolboxXML: PropTypes.string,
     updateToolboxState: PropTypes.func,
     vm: PropTypes.instanceOf(VM).isRequired
@@ -427,8 +463,9 @@ Blocks.defaultOptions = {
         fieldShadow: 'rgba(255, 255, 255, 0.3)',
         dragShadowOpacity: 0.6
     },
-    comments: false,
-    collapse: false
+    comments: true,
+    collapse: false,
+    sounds: false
 };
 
 Blocks.defaultProps = {
@@ -437,11 +474,15 @@ Blocks.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    extensionLibraryVisible: state.modals.extensionLibrary,
-    locale: state.intl.locale,
-    messages: state.intl.messages,
-    toolboxXML: state.toolbox.toolboxXML,
-    customProceduresVisible: state.customProcedures.active
+    anyModalVisible: (
+        Object.keys(state.scratchGui.modals).some(key => state.scratchGui.modals[key]) ||
+        state.scratchGui.mode.isFullScreen
+    ),
+    extensionLibraryVisible: state.scratchGui.modals.extensionLibrary,
+    locale: state.locales.locale,
+    messages: state.locales.messages,
+    toolboxXML: state.scratchGui.toolbox.toolboxXML,
+    customProceduresVisible: state.scratchGui.customProcedures.active
 });
 
 const mapDispatchToProps = dispatch => ({
