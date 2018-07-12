@@ -21,7 +21,7 @@ export default [
                 id="gui.extension.stemweb.name"
             />
         ),
-        extensionId: '人工智能模块',
+        extensionId: 'stem',
         iconURL: aiImage,
         description: (
             <FormattedMessage
