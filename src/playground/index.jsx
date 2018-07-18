@@ -1,5 +1,6 @@
 import 'es6-object-assign/auto';
 import 'core-js/fn/array/includes';
+import 'intl'; // For Safari 9
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -33,8 +34,8 @@ const backpackOptions = {
     host: backpackHost
 };
 
-if (!projectDataInfo) {
-    ReactDOM.render(<WrappedGui backpackOptions={backpackOptions} />, appTarget);
+if (!global.projectDataInfo) {
+    ReactDOM.render(<WrappedGui backpackOptions={backpackOptions} isPlayerOnly={global.scratch_isPlayerOnly} isFullScreen={global.scratch_isFullScreen}/>, appTarget);
 } else {
-    ReactDOM.render(<WrappedGui projectData={projectDataInfo} backpackOptions={backpackOptions}/>, appTarget);
+    ReactDOM.render(<WrappedGui projectData={projectDataInfo} isPlayerOnly={global.scratch_isPlayerOnly} isFullScreen={global.scratch_isFullScreen} backpackOptions={backpackOptions}/>, appTarget);
 }

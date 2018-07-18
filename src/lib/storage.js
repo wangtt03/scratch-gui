@@ -3,7 +3,7 @@ import ScratchStorage from 'scratch-storage';
 import defaultProjectAssets from './default-project';
 
 const PROJECT_SERVER = 'https://projects.scratch.mit.edu';
-const ASSET_SERVER = 'https://stemwebdata.oss-cn-beijing.aliyuncs.com';
+const ASSET_SERVER = 'https://images.k12mlmq.com';
 
 /**
  * Wrapper for ScratchStorage which adds default web sources.
