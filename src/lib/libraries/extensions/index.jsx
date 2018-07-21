@@ -12,6 +12,12 @@ import boostImage from './boost.png';
 import translateImage from './translate.png';
 import aiImage from './ai_image.jpg';
 
+import ev3DeviceImage from './device-connection/ev3/ev3-hub-illustration.svg';
+import ev3MenuImage from './device-connection/ev3/ev3-small.svg';
+
+import microbitDeviceImage from './device-connection/microbit/microbit-illustration.svg';
+import microbitMenuImage from './device-connection/microbit/microbit-small.svg';
+
 export default [
     {
         name: (
@@ -129,18 +135,21 @@ export default [
         disabled: true
     },
     {
-        name: 'Micro:bit',
+        name: 'micro:bit',
         extensionId: 'microbit',
         iconURL: microbitImage,
         description: (
             <FormattedMessage
-                defaultMessage="Connect your projects with the physical world."
-                description="Description for the 'Micro:bit' extension"
+                defaultMessage="Connect your projects with the world."
+                description="Description for the 'micro:bit' extension"
                 id="gui.extension.microbit.description"
             />
         ),
         featured: true,
-        disabled: true
+        disabled: true,
+        launchDeviceConnectionFlow: true,
+        deviceImage: microbitDeviceImage,
+        smallDeviceImage: microbitMenuImage
     },
     {
         name: 'LEGO WeDo 2.0',
@@ -168,7 +177,10 @@ export default [
             />
         ),
         featured: true,
-        disabled: true
+        disabled: true,
+        launchDeviceConnectionFlow: true,
+        deviceImage: ev3DeviceImage,
+        smallDeviceImage: ev3MenuImage
     },
     {
         name: 'LEGO Boost',

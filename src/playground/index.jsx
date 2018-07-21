@@ -1,3 +1,4 @@
+// Polyfills
 import 'es6-object-assign/auto';
 import 'core-js/fn/array/includes';
 import 'intl'; // For Safari 9
@@ -20,7 +21,7 @@ if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
 analytics.pageview('/');
 
 const appTarget = document.getElementById('scratch-gui');
-appTarget.className = styles.app;
+appTarget.className = appTarget.className + " " + styles.app;
 
 GUI.setAppElement(appTarget);
 const WrappedGui = HashParserHOC(AppStateHOC(GUI));

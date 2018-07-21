@@ -46,6 +46,7 @@ const getStageDimensions = (stageSize, isFullScreen) => {
     };
 
     if (isFullScreen) {
+        var stageBorderWidth = 3;
         stageDimensions.height = window.innerHeight * .75;
         // stageSize.height = window.innerHeight -
         //                    STAGE_SIZE_DEFAULTS.menuHeightAdjustment -
@@ -53,8 +54,8 @@ const getStageDimensions = (stageSize, isFullScreen) => {
 
         stageDimensions.width = stageDimensions.height + (stageDimensions.height / 3);
 
-        if (stageDimensions.width > window.innerWidth) {
-            stageDimensions.width = window.innerWidth;
+        if (stageDimensions.width > (window.innerWidth - stageBorderWidth * 2)) {
+            stageDimensions.width = (window.innerWidth - stageBorderWidth * 2);
             stageDimensions.height = stageDimensions.width * .75;
         }
 

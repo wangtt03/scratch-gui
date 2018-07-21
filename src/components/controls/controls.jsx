@@ -49,6 +49,7 @@ const Controls = function (props) {
             />
             <button id='stem-next-level-button'>下一关</button>
             <button id='stem-help-button'>帮助</button>
+            <button id='stem-source-button'>查看制作方法</button>
             {turbo ? (
                 <TurboMode />
             ) : null}
