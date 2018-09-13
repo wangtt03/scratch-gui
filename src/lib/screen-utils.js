@@ -47,23 +47,22 @@ const getStageDimensions = (stageSize, isFullScreen) => {
 
     if (isFullScreen) {
         var stageBorderWidth = 3;
-        stageDimensions.height = window.innerHeight * .75;
-        // stageSize.height = window.innerHeight -
-        //                    STAGE_SIZE_DEFAULTS.menuHeightAdjustment -
-        //                    STAGE_SIZE_DEFAULTS.spacingBorderAdjustment;
-
-        stageDimensions.width = stageDimensions.height + (stageDimensions.height / 3);
-
-        if (stageDimensions.width > (window.innerWidth - stageBorderWidth * 2)) {
-            stageDimensions.width = (window.innerWidth - stageBorderWidth * 2);
-            stageDimensions.height = stageDimensions.width * .75;
-        }
+        stageDimensions.width = (window.innerWidth - stageBorderWidth * 2);
+        stageDimensions.height = stageDimensions.width * .75;
 
         stageDimensions.scale = stageDimensions.width / stageDimensions.widthDefault;
     } else {
-        stageDimensions.scale = STAGE_DISPLAY_SCALES[stageSize];
-        stageDimensions.height = stageDimensions.scale * stageDimensions.heightDefault;
-        stageDimensions.width = stageDimensions.scale * stageDimensions.widthDefault;
+        var stageBorderWidth = 3;
+        if ($('.scratch-preview-root').length > 0) {
+            var containerWidth = $('.scratch-preview-root')[0].clientWidth;
+            stageDimensions.width = containerWidth - stageBorderWidth * 2;
+            stageDimensions.height = stageDimensions.width * 0.75;
+            stageDimensions.scale = stageDimensions.width / stageDimensions.widthDefault;
+        } else {
+            stageDimensions.scale = STAGE_DISPLAY_SCALES[stageSize];
+            stageDimensions.height = stageDimensions.scale * stageDimensions.heightDefault;
+            stageDimensions.width = stageDimensions.scale * stageDimensions.widthDefault;
+        }
     }
 
     return stageDimensions;
