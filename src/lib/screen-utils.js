@@ -10,8 +10,13 @@ import layout, {STAGE_DISPLAY_SCALES, STAGE_SIZE_MODES, STAGE_DISPLAY_SIZES} fro
  */
 
 const STAGE_DIMENSION_DEFAULTS = {
-    spacingBorderAdjustment: 9,
-    menuHeightAdjustment: 40
+    // referencing css/units.css,
+    // spacingBorderAdjustment = 2 * $full-screen-top-bottom-margin +
+    //   2 * $full-screen-border-width
+    fullScreenSpacingBorderAdjustment: 12,
+    // referencing css/units.css,
+    // menuHeightAdjustment = $stage-menu-height
+    menuHeightAdjustment: 44
 };
 
 /**
@@ -49,7 +54,6 @@ const getStageDimensions = (stageSize, isFullScreen) => {
         var stageBorderWidth = 3;
         stageDimensions.width = (window.innerWidth - stageBorderWidth * 2);
         stageDimensions.height = stageDimensions.width * .75;
-
         stageDimensions.scale = stageDimensions.width / stageDimensions.widthDefault;
     } else {
         var stageBorderWidth = 3;

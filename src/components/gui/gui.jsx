@@ -67,6 +67,7 @@ const GUIComponent = props => {
         importInfoVisible,
         intl,
         isPlayerOnly,
+        isRtl,
         loading,
         onExtensionButtonClick,
         onActivateCostumesTab,
@@ -75,6 +76,7 @@ const GUIComponent = props => {
         onRequestCloseBackdropLibrary,
         onRequestCloseCostumeLibrary,
         onSeeCommunity,
+        onUpdateProjectTitle,
         previewInfoVisible,
         targetIsStage,
         soundsTabVisible,
@@ -112,6 +114,7 @@ const GUIComponent = props => {
         ) : (
             <Box
                 className={styles.pageWrapper}
+                dir={isRtl ? 'rtl' : 'ltr'}
                 {...componentProps}
             >
                 {previewInfoVisible ? (
@@ -124,7 +127,7 @@ const GUIComponent = props => {
                     <ImportModal />
                 ) : null}
                 {isRendererSupported ? null : (
-                    <WebGlModal />
+                    <WebGlModal isRtl={isRtl} />
                 )}
                 {tipsLibraryVisible ? (
                     <TipsLibrary />
@@ -290,6 +293,7 @@ GUIComponent.propTypes = {
     importInfoVisible: PropTypes.bool,
     intl: intlShape.isRequired,
     isPlayerOnly: PropTypes.bool,
+    isRtl: PropTypes.bool,
     loading: PropTypes.bool,
     onActivateCostumesTab: PropTypes.func,
     onActivateSoundsTab: PropTypes.func,
@@ -299,6 +303,7 @@ GUIComponent.propTypes = {
     onRequestCloseCostumeLibrary: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onTabSelect: PropTypes.func,
+    onUpdateProjectTitle: PropTypes.func,
     previewInfoVisible: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
