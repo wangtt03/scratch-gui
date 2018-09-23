@@ -56,12 +56,20 @@ const WebGlModal = ({intl, ...props}) => (
                 <Box className={styles.buttonRow}>
                     <button
                         className={styles.backButton}
-                        onClick={props.onBack}
+                        onClick={()=>{
+                            var url = window.location.href;
+                            if (url.indexOf("?") != -1) {
+                                url += "&version=2"
+                            } else {
+                                url += "?version=2"
+                            }
+                            window.location.href = url;
+                        }}
                     >
                         <FormattedMessage
-                            defaultMessage="Back"
+                            defaultMessage="访问旧版本"
                             description="Label for button go back when browser is unsupported"
-                            id="gui.webglModal.back"
+                            id="gui.webglModal.backToV2"
                         />
                     </button>
 
