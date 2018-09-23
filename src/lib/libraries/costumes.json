@@ -1,6 +1,6 @@
 [
     {
-        "name": "Sun flower",
+        "name": "sunflower-1",
         "md5": "2D46C20F108444C59CF8DCB836275761.png",
         "type": "costume",
         "tags": [
@@ -13,7 +13,85 @@
         ]
     },
     {
-        "name": "Zoombie",
+        "name": "sunflower-2",
+        "md5": "2D46C20F108444C59CF8DCB836275762.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            122,
+            132,
+            7
+        ]
+    },
+    {
+        "name": "sunflower-3",
+        "md5": "2D46C20F108444C59CF8DCB836275763.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            122,
+            132,
+            7
+        ]
+    },
+    {
+        "name": "sunflower-4",
+        "md5": "2D46C20F108444C59CF8DCB836275764.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            122,
+            132,
+            7
+        ]
+    },
+    {
+        "name": "sunflower-5",
+        "md5": "2D46C20F108444C59CF8DCB836275765.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            122,
+            132,
+            7
+        ]
+    },
+    {
+        "name": "sunflower-6",
+        "md5": "2D46C20F108444C59CF8DCB836275766.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            122,
+            132,
+            7
+        ]
+    },
+    {
+        "name": "sunflower-7",
+        "md5": "2D46C20F108444C59CF8DCB836275767.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            122,
+            132,
+            7
+        ]
+    },
+    {
+        "name": "zoombie-1",
         "md5": "D0CB894C83C34816B7C4CB44C63BA191.svg",
         "type": "costume",
         "tags": [
@@ -26,8 +104,268 @@
         ]
     },
     {
-        "name": "pea shooter",
+        "name": "zoombie-2",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA192.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-3",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA193.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-4",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA194.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-5",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA195.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-6",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA196.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-7",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA197.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-8",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA198.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-9",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA199.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-10",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA110.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "zoombie-11",
+        "md5": "D0CB894C83C34816B7C4CB44C63BA111.svg",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            83,
+            131,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-1",
         "md5": "99B3A967727D4566B0CD3EEABE603F91.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-2",
+        "md5": "99B3A967727D4566B0CD3EEABE603F92.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-3",
+        "md5": "99B3A967727D4566B0CD3EEABE603F93.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-4",
+        "md5": "99B3A967727D4566B0CD3EEABE603F94.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-5",
+        "md5": "99B3A967727D4566B0CD3EEABE603F95.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-6",
+        "md5": "99B3A967727D4566B0CD3EEABE603F96.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-7",
+        "md5": "99B3A967727D4566B0CD3EEABE603F97.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-8",
+        "md5": "99B3A967727D4566B0CD3EEABE603F98.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-9",
+        "md5": "99B3A967727D4566B0CD3EEABE603F99.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-10",
+        "md5": "99B3A967727D4566B0CD3EEABE603F10.png",
+        "type": "costume",
+        "tags": [
+            "Animals"
+        ],
+        "info": [
+            135,
+            149,
+            11
+        ]
+    },
+    {
+        "name": "peashooter-11",
+        "md5": "99B3A967727D4566B0CD3EEABE603F11.png",
         "type": "costume",
         "tags": [
             "Animals"

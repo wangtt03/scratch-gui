@@ -28,10 +28,10 @@ export default appTarget => {
         window.onbeforeunload = () => true;
     }
 
-    if (!global.projectDataInfo) {
-        ReactDOM.render(<WrappedGui backpackOptions={backpackOptions} isPlayerOnly={global.scratch_isPlayerOnly} isFullScreen={global.scratch_isFullScreen}/>, appTarget);
+    if (!window.scratchProjectUrl) {
+        ReactDOM.render(<WrappedGui backpackOptions={backpackOptions} isPlayerOnly={window.scratch_isPlayerOnly} isFullScreen={window.scratch_isFullScreen}/>, appTarget);
     } else {
-        ReactDOM.render(<WrappedGui projectData={projectDataInfo} isPlayerOnly={global.scratch_isPlayerOnly} isFullScreen={global.scratch_isFullScreen} backpackOptions={backpackOptions}/>, appTarget);
+        ReactDOM.render(<WrappedGui projectUrl={window.scratchProjectUrl} isPlayerOnly={window.scratch_isPlayerOnly} isFullScreen={window.scratch_isFullScreen} backpackOptions={backpackOptions}/>, appTarget);
     }
 
 };

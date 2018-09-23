@@ -32,6 +32,13 @@ const ProjectLoaderHOC = function (WrappedComponent) {
             ) {
                 this.updateProject(props.projectId);
             }
+            if (
+                props.projectUrl !== '' &&
+                props.projectUrl !== null &&
+                typeof props.projectUrl !== 'undefined'
+            ) {
+                this.updateProjectUrl(props.projectUrl);
+            }
         }
         componentWillUpdate (nextProps) {
             if (this.props.projectHost !== nextProps.projectHost) {
@@ -46,6 +53,21 @@ const ProjectLoaderHOC = function (WrappedComponent) {
                     this.updateProject(nextProps.projectId);
                 });
             }
+        }
+        updateProjectUrl (projectUrl) {
+            var that = this;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', projectUrl, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function (e) {
+                if (this.status === 200) {
+                    that.setState({
+                        projectData: this.response,
+                        fetchingProject: false
+                    });
+                }
+            };
+            xhr.send();
         }
         updateProject (projectId) {
             storage
