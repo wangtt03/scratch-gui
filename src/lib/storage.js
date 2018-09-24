@@ -1,6 +1,6 @@
 import ScratchStorage from 'scratch-storage';
 
-import defaultProjectAssets from './default-project';
+import defaultProject from './default-project';
 
 const PROJECT_SERVER = 'https://projects.scratch.mit.edu';
 const ASSET_SERVER = 'https://images.k12mlmq.com';
@@ -12,12 +12,7 @@ const ASSET_SERVER = 'https://images.k12mlmq.com';
 class Storage extends ScratchStorage {
     constructor () {
         super();
-        defaultProjectAssets.forEach(asset => this.cache(
-            this.AssetType[asset.assetType],
-            this.DataFormat[asset.dataFormat],
-            asset.data,
-            asset.id
-        ));
+        this.cacheDefaultProject();
         this.addWebStore(
             [this.AssetType.Project],
             this.getProjectGetConfig.bind(this),
@@ -56,6 +51,19 @@ class Storage extends ScratchStorage {
     }
     getAssetGetConfig (asset) {
         return `${this.assetHost}/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`;
+    }
+    setTranslatorFunction (translator) {
+        this.translator = translator;
+        this.cacheDefaultProject();
+    }
+    cacheDefaultProject () {
+        const defaultProjectAssets = defaultProject(this.translator);
+        defaultProjectAssets.forEach(asset => this.cache(
+            this.AssetType[asset.assetType],
+            this.DataFormat[asset.dataFormat],
+            asset.data,
+            asset.id
+        ));
     }
 }
 

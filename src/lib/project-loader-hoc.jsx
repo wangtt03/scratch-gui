@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {injectIntl, intlShape} from 'react-intl';
 
 import {setProjectId} from '../reducers/project-id';
 
@@ -24,6 +25,7 @@ const ProjectLoaderHOC = function (WrappedComponent) {
             };
             storage.setProjectHost(props.projectHost);
             storage.setAssetHost(props.assetHost);
+            storage.setTranslatorFunction(props.intl.formatMessage);
             props.setProjectId(props.projectId);
             if (
                 props.projectId !== '' &&
@@ -53,6 +55,11 @@ const ProjectLoaderHOC = function (WrappedComponent) {
                     this.updateProject(nextProps.projectId);
                 });
             }
+            if (this.props.projectUrl !== nextProps.projectUrl) {
+                this.setState({fetchingProject: true}, () => {
+                    this.updateProjectUrl(nextProps.projectUrl);
+                });
+            }
         }
         updateProjectUrl (projectUrl) {
             var that = this;
@@ -60,6 +67,9 @@ const ProjectLoaderHOC = function (WrappedComponent) {
             xhr.open('GET', projectUrl, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function (e) {
+                if (window.scratchProjectLoaded) {
+                    window.scratchProjectLoaded();
+                }
                 if (this.status === 200) {
                     that.setState({
                         projectData: this.response,
@@ -110,6 +120,7 @@ const ProjectLoaderHOC = function (WrappedComponent) {
     }
     ProjectLoaderComponent.propTypes = {
         assetHost: PropTypes.string,
+        intl: intlShape.isRequired,
         projectHost: PropTypes.string,
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         setProjectId: PropTypes.func
@@ -126,7 +137,7 @@ const ProjectLoaderHOC = function (WrappedComponent) {
         setProjectId: id => dispatch(setProjectId(id))
     });
 
-    return connect(mapStateToProps, mapDispatchToProps)(ProjectLoaderComponent);
+    return injectIntl(connect(mapStateToProps, mapDispatchToProps)(ProjectLoaderComponent));
 };
 
 export {
