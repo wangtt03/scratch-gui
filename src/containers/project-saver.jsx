@@ -35,7 +35,7 @@ class ProjectSaver extends React.Component {
         document.body.appendChild(saveLink);
 
         this.props.saveProjectSb3().then(content => {
-            saveSb3ProjectToCloud(content);
+            window.saveSb3ProjectToCloud(content);
         });
     }
     doStoreProject (id) {

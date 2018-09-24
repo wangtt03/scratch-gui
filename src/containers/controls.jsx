@@ -17,7 +17,7 @@ class Controls extends React.Component {
     }
     handleGreenFlagClick (e) {
         e.preventDefault();
-        saveUserScratchProgramToCloud();
+        window.saveUserScratchProgramToCloud();
         if (e.shiftKey) {
             this.props.vm.setTurboMode(!this.props.turbo);
         } else {
