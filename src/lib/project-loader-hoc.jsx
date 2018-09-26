@@ -104,6 +104,7 @@ const ProjectLoaderHOC = function (WrappedComponent) {
                 assetHost,
                 projectHost,
                 projectId,
+                projectUrl,
                 setProjectId: setProjectIdProp,
                 /* eslint-enable no-unused-vars */
                 ...componentProps
@@ -122,6 +123,7 @@ const ProjectLoaderHOC = function (WrappedComponent) {
         assetHost: PropTypes.string,
         intl: intlShape.isRequired,
         projectHost: PropTypes.string,
+        projectUrl: PropTypes.string,
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         setProjectId: PropTypes.func
     };
