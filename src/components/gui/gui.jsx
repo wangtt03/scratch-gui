@@ -17,6 +17,7 @@ import SoundTab from '../../containers/sound-tab.jsx';
 import StageWrapper from '../../containers/stage-wrapper.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
+import SB3Downloader from '../../containers/sb3-downloader.jsx';
 import MenuBar from '../menu-bar/menu-bar.jsx';
 import CostumeLibrary from '../../containers/costume-library.jsx';
 import BackdropLibrary from '../../containers/backdrop-library.jsx';
@@ -39,8 +40,6 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 
-import ProjectSaver from '../../containers/project-saver.jsx'
-
 const messages = defineMessages({
     addExtension: {
         id: 'gui.gui.addExtension',
@@ -55,6 +54,7 @@ let isRendererSupported = null;
 
 const GUIComponent = props => {
     const {
+        accountNavOpen,
         activeTabIndex,
         alertsVisible,
         basePath,
@@ -71,14 +71,21 @@ const GUIComponent = props => {
         isPlayerOnly,
         isRtl,
         loading,
-        onExtensionButtonClick,
+        renderLogin,
+        onClickAccountNav,
+        onCloseAccountNav,
+        onLogOut,
+        onOpenRegistration,
+        onToggleLoginOpen,
+        onUpdateProjectTitle,
         onActivateCostumesTab,
         onActivateSoundsTab,
         onActivateTab,
+        onExtensionButtonClick,
         onRequestCloseBackdropLibrary,
         onRequestCloseCostumeLibrary,
         onSeeCommunity,
-        onUpdateProjectTitle,
+        onShare,
         previewInfoVisible,
         targetIsStage,
         soundsTabVisible,
@@ -156,15 +163,25 @@ const GUIComponent = props => {
                         onRequestClose={onRequestCloseBackdropLibrary}
                     />
                 ) : null}
-                <ProjectSaver>{(saveProject, saveProps) => (
-                    <button
-                            onClick={saveProject}
-                            id='stem-saver'
-                            style={{display: "None"}}
-                            >
+                <SB3Downloader>{downloadProject => (
+                    <button onClick={downloadProject} id='stem-saver' style={{display: "None"}}>
                         Download to your computer
                     </button>
-                )}</ProjectSaver>
+                )}</SB3Downloader>
+                <MenuBar
+                    accountNavOpen={accountNavOpen}
+                    className={styles.menuBarPosition}
+                    enableCommunity={enableCommunity}
+                    renderLogin={renderLogin}
+                    onClickAccountNav={onClickAccountNav}
+                    onCloseAccountNav={onCloseAccountNav}
+                    onLogOut={onLogOut}
+                    onOpenRegistration={onOpenRegistration}
+                    onSeeCommunity={onSeeCommunity}
+                    onShare={onShare}
+                    onToggleLoginOpen={onToggleLoginOpen}
+                    onUpdateProjectTitle={onUpdateProjectTitle}
+                />
                 <Box className={styles.bodyWrapper}>
                     <Box className={styles.flexWrapper}>
                         <Box className={styles.editorWrapper}>
@@ -286,6 +303,7 @@ const GUIComponent = props => {
 };
 
 GUIComponent.propTypes = {
+    accountNavOpen: PropTypes.bool,
     activeTabIndex: PropTypes.number,
     backdropLibraryVisible: PropTypes.bool,
     backpackOptions: PropTypes.shape({
@@ -307,13 +325,20 @@ GUIComponent.propTypes = {
     onActivateCostumesTab: PropTypes.func,
     onActivateSoundsTab: PropTypes.func,
     onActivateTab: PropTypes.func,
+    onClickAccountNav: PropTypes.func,
+    onCloseAccountNav: PropTypes.func,
     onExtensionButtonClick: PropTypes.func,
+    onLogOut: PropTypes.func,
+    onOpenRegistration: PropTypes.func,
     onRequestCloseBackdropLibrary: PropTypes.func,
     onRequestCloseCostumeLibrary: PropTypes.func,
     onSeeCommunity: PropTypes.func,
+    onShare: PropTypes.func,
     onTabSelect: PropTypes.func,
+    onToggleLoginOpen: PropTypes.func,
     onUpdateProjectTitle: PropTypes.func,
     previewInfoVisible: PropTypes.bool,
+    renderLogin: PropTypes.func,
     soundsTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
