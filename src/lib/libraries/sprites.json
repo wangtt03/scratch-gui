@@ -1,5 +1,50 @@
 [
     {
+        "name": "重阳糕",
+        "md5": "D2C2B3F54F1A415A9AF9310827A8D563.png",
+        "type": "sprite",
+        "tags": [
+            "things"
+        ],
+        "info": [
+            0,
+            1,
+            1
+        ],
+        "json": {
+            "objName": "重阳糕",
+            "sounds": [
+                {
+                    "soundName": "pop",
+                    "soundID": -1,
+                    "md5": "83a9787d4cb6f3b7632b4ddfebf74367.wav",
+                    "sampleCount": 258,
+                    "rate": 11025,
+                    "format": ""
+                }
+            ],
+            "costumes": [
+                {
+                    "costumeName": "chongyanggao-1",
+                    "baseLayerID": -1,
+                    "baseLayerMD5": "D2C2B3F54F1A415A9AF9310827A8D563.png",
+                    "bitmapResolution": 1,
+                    "rotationCenterX": 110,
+                    "rotationCenterY": 110
+                }
+            ],
+            "currentCostumeIndex": 0,
+            "scratchX": -20,
+            "scratchY": -38,
+            "scale": 1,
+            "direction": 90,
+            "rotationStyle": "normal",
+            "isDraggable": false,
+            "visible": true,
+            "spriteInfo": {}
+        }
+    },
+    {
         "name": "Sun flower",
         "md5": "2D46C20F108444C59CF8DCB836275761.png",
         "type": "sprite",
