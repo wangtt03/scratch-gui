@@ -32,9 +32,6 @@ class GUI extends React.Component {
         if (this.props.projectTitle) {
             this.props.onUpdateReduxProjectTitle(this.props.projectTitle);
         }
-        if (window.scratchProjectLoaded) {
-            window.scratchProjectLoaded();
-        }
     }
     componentWillReceiveProps (nextProps) {
         if (this.props.projectTitle !== nextProps.projectTitle) {

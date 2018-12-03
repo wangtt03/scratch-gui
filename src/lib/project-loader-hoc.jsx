@@ -67,9 +67,6 @@ const ProjectLoaderHOC = function (WrappedComponent) {
             xhr.open('GET', projectUrl, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function (e) {
-                if (window.scratchProjectLoaded) {
-                    window.scratchProjectLoaded();
-                }
                 if (this.status === 200) {
                     that.setState({
                         projectData: this.response,

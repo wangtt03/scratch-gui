@@ -111,6 +111,12 @@ const GUIComponent = props => {
         isRendererSupported = Renderer.isSupported();
     }
 
+    if (!loading) {
+        if (window.scratchProjectLoaded) {
+            window.scratchProjectLoaded();
+        }
+    }
+
     return (<MediaQuery minWidth={layout.fullSizeMinWidth}>{isFullSize => {
         const stageSize = resolveStageSize(stageSizeMode, isFullSize);
 
