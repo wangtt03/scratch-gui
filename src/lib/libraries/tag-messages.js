@@ -100,5 +100,40 @@ export default defineMessages({
         defaultMessage: 'Wacky',
         description: 'Tag for filtering a library for wacky',
         id: 'gui.libraryTags.wacky'
+    },
+    sanguo: {
+        defaultMessage: '三国演义',
+        description: '三国演义',
+        id: 'gui.libraryTags.sanguo'
+    },
+    caochong: {
+        defaultMessage: '曹冲称象',
+        description: '曹冲称象',
+        id: 'gui.libraryTags.caochong'
+    },
+    minecraft: {
+        defaultMessage: '我的世界',
+        description: '我的世界',
+        id: 'gui.libraryTags.minecraft'
+    },
+    airforce: {
+        defaultMessage: '王牌战机',
+        description: '王牌战机',
+        id: 'gui.libraryTags.airforce'
+    },
+    dungeon: {
+        defaultMessage: '皇家守卫军',
+        description: '皇家守卫军',
+        id: 'gui.libraryTags.dungeon'
+    },
+    angrybird: {
+        defaultMessage: '愤怒的小鸟',
+        description: '愤怒的小鸟',
+        id: 'gui.libraryTags.angrybird'
+    },
+    pvz: {
+        defaultMessage: '植物与僵尸',
+        description: '植物与僵尸',
+        id: 'gui.libraryTags.pvz'
     }
 });
