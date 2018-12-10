@@ -13,6 +13,8 @@ class Storage extends ScratchStorage {
     constructor () {
         super();
         this.cacheDefaultProject();
+    }
+    addOfficialScratchWebStores () {
         this.addWebStore(
             [this.AssetType.Project],
             this.getProjectGetConfig.bind(this),
@@ -52,13 +54,24 @@ class Storage extends ScratchStorage {
     getAssetGetConfig (asset) {
         return `${this.assetHost}/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`;
     }
+    getAssetCreateConfig (asset) {
+        return {
+            // There is no such thing as updating assets, but storage assumes it
+            // should update if there is an assetId, and the asset store uses the
+            // assetId as part of the create URI. So, force the method to POST.
+            // Then when storage finds this config to use for the "update", still POSTs
+            method: 'post',
+            url: `${this.assetHost}/${asset.assetId}.${asset.dataFormat}`,
+            withCredentials: true
+        };
+    }
     setTranslatorFunction (translator) {
         this.translator = translator;
         this.cacheDefaultProject();
     }
     cacheDefaultProject () {
         const defaultProjectAssets = defaultProject(this.translator);
-        defaultProjectAssets.forEach(asset => this.cache(
+        defaultProjectAssets.forEach(asset => this.builtinHelper._store(
             this.AssetType[asset.assetType],
             this.DataFormat[asset.dataFormat],
             asset.data,

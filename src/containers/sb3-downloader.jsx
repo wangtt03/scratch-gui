@@ -38,6 +38,7 @@ class SB3Downloader extends React.Component {
             children
         } = this.props;
         return children(
+            this.props.className,
             this.downloadProject
         );
     }
@@ -53,9 +54,13 @@ const getProjectFilename = (curTitle, defaultTitle) => {
 
 SB3Downloader.propTypes = {
     children: PropTypes.func,
+    className: PropTypes.string,
     onSaveFinished: PropTypes.func,
     projectFilename: PropTypes.string,
     saveProjectSb3: PropTypes.func
+};
+SB3Downloader.defaultProps = {
+    className: ''
 };
 
 const mapStateToProps = state => ({

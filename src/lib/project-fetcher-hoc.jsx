@@ -4,11 +4,14 @@ import {intlShape, injectIntl} from 'react-intl';
 import bindAll from 'lodash.bindall';
 import {connect} from 'react-redux';
 
+import {setProjectUnchanged} from '../reducers/project-changed';
 import {
     LoadingStates,
     defaultProjectId,
-    onFetchedProjectData,
     getIsFetchingWithId,
+    getIsShowingProject,
+    onFetchedProjectData,
+    projectError,
     setProjectId
 } from '../reducers/project-state';
 
@@ -40,7 +43,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
                 props.projectId !== null &&
                 typeof props.projectId !== 'undefined'
             ) {
-                this.props.setProjectId(props.projectId);
+                this.props.setProjectId(props.projectId.toString());
             }
         }
         componentDidUpdate (prevProps) {
@@ -53,41 +56,87 @@ const ProjectFetcherHOC = function (WrappedComponent) {
             if (this.props.isFetchingWithId && !prevProps.isFetchingWithId) {
                 this.fetchProject(this.props.projectId, this.props.loadingState);
             }
+            if (this.props.isShowingProject && !prevProps.isShowingProject) {
+                this.props.onProjectLoaded();
+            }
         }
         fetchProject (projectId, loadingState) {
-            return storage
-                .load(storage.AssetType.Project, projectId, storage.DataFormat.JSON)
+            if (projectId == 0) {
+                return storage
+                    .load(storage.AssetType.Project, projectId, storage.DataFormat.JSON)
+                    .then(projectAsset => {
+                        if (projectAsset) {
+                            this.props.onFetchedProjectData(projectAsset.data, loadingState);
+                        } else {
+                            this.fetchProject(0, loadingState);
+                        }
+                    })
+                    .then(() => {
+                        if (projectId !== defaultProjectId) {
+                            // if not default project, register a project load event
+                            analytics.event({
+                                category: 'project',
+                                action: 'Load Project',
+                                label: projectId,
+                                nonInteraction: true
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        this.props.onError(err);
+                        log.error(err);
+                    });
+            } else {
+                var that = this;
+                return new Promise(rev => {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', that.props.projectHost + "/" + that.props.projectId, true);
+                    xhr.responseType = 'arraybuffer';
+                    xhr.onload = function (e) {
+                        if (this.status === 200) {
+                            rev({data: this.response});
+                        } else {
+                            rev();
+                        }
+    
+                    };
+                    xhr.send();
+                })
                 .then(projectAsset => {
-                    if (projectAsset) {
-                        this.props.onFetchedProjectData(projectAsset.data, loadingState);
-                    } else {
-                        this.fetchProject(0, loadingState);
-                    }
-                })
-                .then(() => {
-                    if (projectId !== defaultProjectId) {
-                        // if not default project, register a project load event
-                        analytics.event({
-                            category: 'project',
-                            action: 'Load Project',
-                            label: projectId,
-                            nonInteraction: true
-                        });
-                    }
-                })
-                .catch(err => {
-                    log.error(err);
-                });
+                        if (projectAsset) {
+                            this.props.onFetchedProjectData(projectAsset.data, loadingState);
+                        } else {
+                            this.fetchProject(0, loadingState);
+                        }
+                    })
+                    .then(() => {
+                        if (projectId !== defaultProjectId) {
+                            // if not default project, register a project load event
+                            analytics.event({
+                                category: 'project',
+                                action: 'Load Project',
+                                label: projectId,
+                                nonInteraction: true
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        this.props.onError(err);
+                        log.error(err);
+                    });
+            }
+            
         }
         render () {
             const {
                 /* eslint-disable no-unused-vars */
                 assetHost,
-                onFetchedProjectData: onFetchedProjectDataProp,
                 intl,
+                loadingState,
+                onError: onErrorProp,
+                onFetchedProjectData: onFetchedProjectDataProp,
                 projectHost,
                 projectId,
-                loadingState,
                 reduxProjectId,
                 setProjectId: setProjectIdProp,
                 /* eslint-enable no-unused-vars */
@@ -104,9 +153,11 @@ const ProjectFetcherHOC = function (WrappedComponent) {
     }
     ProjectFetcherComponent.propTypes = {
         assetHost: PropTypes.string,
+        canSave: PropTypes.bool,
         intl: intlShape.isRequired,
         isFetchingWithId: PropTypes.bool,
         loadingState: PropTypes.oneOf(LoadingStates),
+        onError: PropTypes.func,
         onFetchedProjectData: PropTypes.func,
         projectHost: PropTypes.string,
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -120,14 +171,18 @@ const ProjectFetcherHOC = function (WrappedComponent) {
 
     const mapStateToProps = state => ({
         isFetchingWithId: getIsFetchingWithId(state.scratchGui.projectState.loadingState),
+        isShowingProject: getIsShowingProject(state.scratchGui.projectState.loadingState),
         loadingState: state.scratchGui.projectState.loadingState,
         reduxProjectId: state.scratchGui.projectState.projectId
     });
     const mapDispatchToProps = dispatch => ({
+        onError: error => dispatch(projectError(error)),
         onFetchedProjectData: (projectData, loadingState) =>
             dispatch(onFetchedProjectData(projectData, loadingState)),
-        setProjectId: projectId => dispatch(setProjectId(projectId))
+        setProjectId: projectId => dispatch(setProjectId(projectId)),
+        onProjectLoaded: () => dispatch(setProjectUnchanged())
     });
+    // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(
         {}, stateProps, dispatchProps, ownProps
     );

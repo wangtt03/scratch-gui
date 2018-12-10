@@ -101,39 +101,29 @@ export default defineMessages({
         description: 'Tag for filtering a library for wacky',
         id: 'gui.libraryTags.wacky'
     },
-    sanguo: {
-        defaultMessage: '三国演义',
-        description: '三国演义',
-        id: 'gui.libraryTags.sanguo'
+    animation: {
+        defaultMessage: 'Animation',
+        description: 'Tag for filtering a library for animation',
+        id: 'gui.libraryTags.animation'
     },
-    caochong: {
-        defaultMessage: '曹冲称象',
-        description: '曹冲称象',
-        id: 'gui.libraryTags.caochong'
+    art: {
+        defaultMessage: 'Art',
+        description: 'Tag for filtering a library for art',
+        id: 'gui.libraryTags.art'
     },
-    minecraft: {
-        defaultMessage: '我的世界',
-        description: '我的世界',
-        id: 'gui.libraryTags.minecraft'
+    games: {
+        defaultMessage: 'Games',
+        description: 'Tag for filtering a library for games',
+        id: 'gui.libraryTags.games'
     },
-    airforce: {
-        defaultMessage: '王牌战机',
-        description: '王牌战机',
-        id: 'gui.libraryTags.airforce'
+    stories: {
+        defaultMessage: 'Stories',
+        description: 'Tag for filtering a library for stories',
+        id: 'gui.libraryTags.stories'
     },
-    dungeon: {
-        defaultMessage: '皇家守卫军',
-        description: '皇家守卫军',
-        id: 'gui.libraryTags.dungeon'
-    },
-    angrybird: {
-        defaultMessage: '愤怒的小鸟',
-        description: '愤怒的小鸟',
-        id: 'gui.libraryTags.angrybird'
-    },
-    pvz: {
-        defaultMessage: '植物与僵尸',
-        description: '植物与僵尸',
-        id: 'gui.libraryTags.pvz'
+    letters: {
+        defaultMessage: 'Letters',
+        description: 'Tag for filtering a library for letters',
+        id: 'gui.libraryTags.letters'
     }
 });

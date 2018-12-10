@@ -28,19 +28,19 @@ export default appTarget => {
     const backpackHostMatches = window.location.href.match(/[?&]backpack_host=([^&]*)&?/);
     const backpackHost = backpackHostMatches ? backpackHostMatches[1] : null;
 
-    const backpackOptions = {
-        visible: true,
-        host: backpackHost
-    };
     if (process.env.NODE_ENV === 'production' && typeof window === 'object') {
         // Warn before navigating away
         window.onbeforeunload = () => true;
     }
 
+    // window.scratchProjectUrl = "gamelab24da0b58-eb925-4735-b65b-faebbf9a38af?rand=0.9064649329831003";
+
     if (!window.scratchProjectUrl) {
-        ReactDOM.render(<WrappedGui backpackOptions={backpackOptions} isPlayerOnly={window.scratch_isPlayerOnly} isFullScreen={window.scratch_isFullScreen}/>, appTarget);
+        ReactDOM.render(<WrappedGui
+            backpackHost={backpackHost} isPlayerOnly={window.scratch_isPlayerOnly} isFullScreen={window.scratch_isFullScreen}/>, appTarget);
     } else {
-        ReactDOM.render(<WrappedGui projectHost="https://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch" projectId={window.scratchProjectUrl} isPlayerOnly={window.scratch_isPlayerOnly} isFullScreen={window.scratch_isFullScreen} backpackOptions={backpackOptions}/>, appTarget);
+        ReactDOM.render(<WrappedGui 
+            backpackHost={backpackHost} projectHost="https://stemwebdata.oss-cn-beijing.aliyuncs.com/scratch" projectId={window.scratchProjectUrl} isPlayerOnly={window.scratch_isPlayerOnly} isFullScreen={window.scratch_isFullScreen} />, appTarget);
     }
 
 };
